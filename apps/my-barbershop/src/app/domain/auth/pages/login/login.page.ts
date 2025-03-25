@@ -1,17 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { ThemeService } from '@shared/services/theme/theme.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'mb-login',
-  imports: [TranslocoModule, NzButtonModule],
+  imports: [NzButtonModule, NzFlexModule],
   templateUrl: './login.page.html',
   styleUrl: './login.page.scss',
 })
 export class LoginPage {
-  private translocoService = inject(TranslocoService);
+  private themeService = inject(ThemeService);
 
-  changeLang(lang: 'en' | 'pt-BR') {
-    this.translocoService.setActiveLang(lang);
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 }

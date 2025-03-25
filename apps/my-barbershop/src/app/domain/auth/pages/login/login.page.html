@@ -1,8 +1,5 @@
-<ng-container *transloco="let t; prefix: 'DOMAIN.AUTH.PAGES.LOGIN'">
-  <h1>{{ t('TITLE') }}</h1>
-</ng-container>
-
-<button nz-button nzType="primary" (click)="changeLang('pt-BR')">
-  Português
-</button>
-<button nz-button nzType="default" (click)="changeLang('en')">Inglês</button>
+<nz-flex nzGap="small">
+  <button nz-button nzType="primary" (click)="toggleTheme()">
+    Toggle theme
+  </button>
+</nz-flex>

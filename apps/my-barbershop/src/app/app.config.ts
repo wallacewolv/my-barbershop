@@ -2,7 +2,8 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   importProvidersFrom,
-  isDevMode,
+  provideAppInitializer,
+  inject,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
@@ -12,8 +13,7 @@ import pt from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
-import { TranslocoHttpLoader } from './transloco-loader';
-import { provideTransloco } from '@jsverse/transloco';
+import { ThemeService } from '@shared/services/theme/theme.service';
 
 registerLocaleData(pt);
 
@@ -25,15 +25,6 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
     provideHttpClient(),
-    provideHttpClient(),
-    provideTransloco({
-      config: {
-        availableLangs: ['pt-BR', 'en'],
-        defaultLang: 'pt-BR',
-        reRenderOnLangChange: true,
-        prodMode: !isDevMode(),
-      },
-      loader: TranslocoHttpLoader,
-    }),
+    provideAppInitializer(() => inject(ThemeService).loadTheme()),
   ],
 };
