@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { ThemeService } from '@shared/services/theme/theme.service';
+import { AuthService } from '@domain/auth/services/auth.sevice';
 
 registerLocaleData(pt);
 
@@ -26,5 +27,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     provideAppInitializer(() => inject(ThemeService).loadTheme()),
+    provideAppInitializer(() => inject(AuthService).load()),
   ],
 };
