@@ -11,4 +11,11 @@ export const AUTH_ROUTES: Route[] = [
     loadComponent: () =>
       import('./pages/sign-up/sign-up.page').then((m) => m.SignUpPage),
   },
+  {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./pages/forgot-password/forgot-password.page').then(
+        (m) => m.ForgotPasswordPage,
+      ),
+  },
 ];

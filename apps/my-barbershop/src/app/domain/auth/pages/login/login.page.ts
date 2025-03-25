@@ -5,7 +5,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { injectSupabase } from '@shared/functions/inject-supabase.function';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
@@ -21,6 +21,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
     NzFormModule,
     NzInputModule,
     ReactiveFormsModule,
+    RouterModule,
   ],
   templateUrl: './login.page.html',
   styleUrl: './login.page.scss',
