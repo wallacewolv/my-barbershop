@@ -1,43 +1,39 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { injectSupabase } from '@shared/functions/inject-supabase.function';
-import { LoadingService } from '@shared/services/loading/loading.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'mb-forgot-password',
+  selector: 'mb-reset-password',
   imports: [
     NzButtonModule,
     NzFormModule,
     NzInputModule,
     FormsModule,
-    CommonModule,
+    RouterModule,
   ],
-  templateUrl: './forgot-password.page.html',
-  styleUrl: './forgot-password.page.scss',
+  templateUrl: './reset-password.page.html',
+  styleUrl: './reset-password.page.scss',
 })
-export class ForgotPasswordPage {
+export class ResetPasswordPage {
   private supabase = injectSupabase();
   private notificationService = inject(NzNotificationService);
-  protected loadingService = inject(LoadingService);
+  private router = inject(Router);
 
-  email = model('');
+  password = model('');
 
   async submit() {
-    this.loadingService.start();
-
-    await this.supabase.auth.resetPasswordForEmail(this.email());
+    await this.supabase.auth.updateUser({ password: this.password() });
     this.notificationService.success(
-      'Email enviado',
-      'Verifique sua caixa de entrada',
+      'Senha alterada',
+      'Sua senha foi alterada com sucesso',
     );
 
-    this.email.set('');
-
-    this.loadingService.stop();
+    this.password.set('');
+    this.router.navigate(['/']);
   }
 }
