@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { injectSupabase } from '@shared/functions/inject-supabase.function';
 import { LoadingService } from '@shared/services/loading/loading.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -16,6 +17,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
     NzInputModule,
     FormsModule,
     CommonModule,
+    RouterModule,
   ],
   templateUrl: './forgot-password.page.html',
   styleUrl: './forgot-password.page.scss',
