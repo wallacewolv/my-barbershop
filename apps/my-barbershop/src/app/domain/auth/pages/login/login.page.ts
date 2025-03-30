@@ -1,21 +1,21 @@
-import { Component, inject } from '@angular/core';
-import {
-  ReactiveFormsModule,
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, ViewChild } from '@angular/core';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { injectSupabase } from '@shared/functions/inject-supabase.function';
+import { eDynamicField } from 'apps/my-barbershop/src/app/widget/components/dynamic-form/dynamic-field.enum';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+import { iDynamicFormConfig } from '../../../../widget/components/dynamic-form/dynamic-form-config.interface';
+import { DynamicFormComponent } from './../../../../widget/components/dynamic-form/dynamic-form.component';
+
 @Component({
   selector: 'mb-login',
   imports: [
+    DynamicFormComponent,
     NzButtonModule,
     NzFlexModule,
     NzFormModule,
@@ -31,29 +31,40 @@ export class LoginPage {
   private notificationService = inject(NzNotificationService);
   private router = inject(Router);
 
-  loginForm!: UntypedFormGroup;
+  loginConfig: iDynamicFormConfig[] = [
+    {
+      label: 'Email',
+      name: 'email',
+      type: {
+        field: eDynamicField.INPUT,
+        typeField: 'email',
+      },
+      validations: [Validators.required, Validators.email],
+      size: 24,
+    },
+    {
+      label: 'Senha',
+      name: 'password',
+      type: {
+        field: eDynamicField.INPUT,
+        typeField: 'password',
+      },
+      showForgotPassword: true,
+      forgotPasswordLink: 'forgot-password',
+      validations: [Validators.required],
+      size: 24,
+    },
+  ];
 
-  constructor() {
-    this.buildForm();
-  }
-
-  buildForm() {
-    this.loginForm = new UntypedFormGroup({
-      email: new UntypedFormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
-      password: new UntypedFormControl('', [Validators.required]),
-    });
-  }
+  @ViewChild(DynamicFormComponent) dynamicForm?: DynamicFormComponent;
 
   async login() {
-    if (!this.loginForm.valid) {
+    if (!this.dynamicForm?.form.valid) {
       this.notificationService.error('Erro', 'Preencha os campos corretamente');
       return;
     }
 
-    const { email, password } = this.loginForm.value;
+    const { email, password } = this.dynamicForm.form.value;
     const { error } = await this.supabase.auth.signInWithPassword({
       email,
       password,
