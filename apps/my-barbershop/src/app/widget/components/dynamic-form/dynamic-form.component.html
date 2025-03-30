@@ -3,7 +3,7 @@
     <ng-container *ngFor="let field of config">
       <div
         nz-col
-        [nzLg]="field.size ?? autoSizeColumns"
+        [nzLg]="field?.size ?? autoSizeColumns"
         [nzXs]="field.mobileSize ?? 24"
         [hidden]="field.hidden || (form.controls[field.name] && form.controls[field.name].disabled && field.hideIfDisabled)"
       >

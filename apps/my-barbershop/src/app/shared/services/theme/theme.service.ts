@@ -9,7 +9,7 @@ enum eThemeType {
   providedIn: 'root',
 })
 export class ThemeService {
-  currentTheme = eThemeType.default;
+  currentTheme = eThemeType.dark;
 
   private reverseTheme(theme: string): eThemeType {
     return theme === eThemeType.dark ? eThemeType.default : eThemeType.dark;

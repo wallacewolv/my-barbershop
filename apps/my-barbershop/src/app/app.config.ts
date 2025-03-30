@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { ThemeService } from '@shared/services/theme/theme.service';
-import { AuthService } from '@domain/auth/services/auth.sevice';
+import { AuthService } from '@domain/auth/services/auth.service';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 registerLocaleData(pt);
